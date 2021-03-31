@@ -7,6 +7,9 @@ import { GoogleLogin } from 'react-google-login';
 import Icon from './Icon';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { signup, signin } from '../../actions/auth';
+
+const initialState = { firstname: '', lastname: '', email: '', password: '', confirmpassword: '' };
 
 const Auth = () => {
 	const classes = useStyles();
@@ -14,14 +17,29 @@ const Auth = () => {
 	const [isSignup, setIsSignup] = useState(false);
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const [formData, setFormData] = useState(initialState);
+	
 	console.log('component');
 	const handleShowPassword = () => {
 		setShowPassword((prevState) => !prevState);
 	};
 
-	const handleSubmit = () => {};
+	const handleSubmit = (e) => {
+		e.preventDefault();
 
-	const handleChange = () => {};
+		if (isSignup) {
+			
+			dispatch(signup(formData, history));
+		} else {
+			dispatch(signin(formData, history));
+			
+		}
+		console.log(formData);
+	};
+
+	const handleChange = (e) => {
+		setFormData({ ...formData, [e.target.name]: e.target.value });
+	};
 
 	const switchMode = () => {
 		setIsSignup((prevState) => !prevState);
@@ -32,8 +50,8 @@ const Auth = () => {
 		const token = res.tokenId;
 
 		try {
-			 dispatch({ type: 'AUTH', data: { result, token } });
-			
+			dispatch({ type: 'AUTH', data: { result, token } });
+
 			history.push('/');
 		} catch (error) {
 			console.log(error);
@@ -62,13 +80,7 @@ const Auth = () => {
 									xs={6}
 								/>
 
-								<Input
-									name="firstName"
-									label="Last Name"
-									handleChange={handleChange}
-									autoFocus
-									xs={6}
-								/>
+								<Input name="lastName" label="Last Name" handleChange={handleChange} autoFocus xs={6} />
 							</>
 						)}
 
