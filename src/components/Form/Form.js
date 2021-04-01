@@ -9,7 +9,6 @@ const Form = ({ currentId, setCurrentId }) => {
 	const classes = useStyles();
 	const post = useSelector((state) => (currentId ? state.posts.find((p) => p._id === currentId) : null));
 	const [postData, setPostData] = useState({
-		creator: '',
 		title: '',
 		message: '',
 		tags: '',
@@ -29,7 +28,6 @@ const Form = ({ currentId, setCurrentId }) => {
 	const clear = () => {
 		setCurrentId(null);
 		setPostData({
-			creator: '',
 			title: '',
 			message: '',
 			tags: '',
@@ -41,25 +39,30 @@ const Form = ({ currentId, setCurrentId }) => {
 		e.preventDefault();
 		console.log('clicked');
 		if (currentId) {
-			dispatch(updatePost(currentId, postData));
+			dispatch(
+				updatePost(currentId, { ...postData, name: JSON.parse(localStorage.getItem('profile'))?.result.name })
+			);
 		} else {
-			dispatch(createPost(postData));
+			dispatch(createPost({ ...postData, name: JSON.parse(localStorage.getItem('profile'))?.result.name }));
 		}
 		clear();
 	};
+
+	if (!localStorage.getItem('profile')) {
+		return (
+			<Paper className={classes.paper}>
+				<Typography variant="h6" align="center">
+					Please Sign in to create your own memories
+				</Typography>
+			</Paper>
+		);
+	}
 
 	return (
 		<Paper className={classes.paper}>
 			<form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
 				<Typography variant="h6">{currentId ? 'Editing a Memory' : 'Creating a Memory'}</Typography>
-				<TextField
-					name="creator"
-					variant="outlined"
-					label="creator"
-					fullWidth
-					value={postData.creator}
-					onChange={(e) => setPostData({ ...postData, creator: e.target.value })}
-				/>
+
 				<TextField
 					name="title"
 					variant="outlined"

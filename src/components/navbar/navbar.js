@@ -14,11 +14,9 @@ const Navbar = () => {
 	const location = useLocation();
 
 	useEffect(() => {
-		
-			const token = user?.token;
+		const token = user?.token;
 
-			setUser(JSON.parse(localStorage.getItem('profile')));
-		
+		setUser(JSON.parse(localStorage.getItem('profile')));
 	}, [location]);
 
 	const logout = () => {
@@ -40,10 +38,15 @@ const Navbar = () => {
 			<Toolbar className={classes.toolbar}>
 				{user ? (
 					<div className={classes.toolbar}>
-						<Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl}>
+						<Avatar
+							className={classes.purple}
+							alt={user.result.name}
+							src={user.result.imageUrl}
+							style={{ marginRight: '30px' }}
+						>
 							{user.result.name.charAt(0)}
 						</Avatar>
-						<Typography className={classes.userName} variant="h6">
+						<Typography className={classes.userName} variant="h6" style={{ marginRight: '30px' }}>
 							{user.result.name}
 						</Typography>
 						<Button variant="contained" className={classes.logout} color="secondary" onClick={logout}>

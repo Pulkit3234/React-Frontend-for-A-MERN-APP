@@ -1,13 +1,12 @@
 import * as api from '../api';
 
-
 export const action = {
 	CREATE: 'CREATE',
 	FETCH_ALL: 'FETCH_ALL',
 	UPDATE: 'UPDATE',
 	DELETE: 'DELETE',
-	LIKE : 'LIKE'
-}
+	LIKE: 'LIKE',
+};
 export const getPosts = () => async (dispatch) => {
 	try {
 		const { data } = await api.fetchPosts();
@@ -48,23 +47,18 @@ export const updatePost = (id, post) => async (dispatch) => {
 	}
 };
 
-
 export const deletePost = (id) => async (dispatch) => {
 	try {
 		await api.deletePost(id);
-	dispatch({ type: action.DELETE, payload: id });
-		
+		dispatch({ type: action.DELETE, payload: id });
 	} catch (error) {
 		console.log(error);
 	}
-
 };
 
 export const likePost = (id) => async (dispatch) => {
 	try {
 		const { data } = await api.likePost(id);
 		dispatch({ type: action.LIKE, payload: data });
-	} catch (error) {
-		
-	}
-}
+	} catch (error) {}
+};

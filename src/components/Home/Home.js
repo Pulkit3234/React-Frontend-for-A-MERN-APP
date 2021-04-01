@@ -6,6 +6,7 @@ import useStyles from './styles';
 import { useDispatch } from 'react-redux';
 import { getPosts } from '../../actions/posts';
 
+
 const Home = () => {
 	const classes = useStyles();
 	const dispatch = useDispatch();
@@ -16,6 +17,7 @@ const Home = () => {
 		console.log('app');
 	}, [currentId, dispatch]);
 
+	
 	return (
 		<Grow in>
 			<Container>
@@ -27,13 +29,14 @@ const Home = () => {
 					spacing={3}
 				>
 					<Grid item xs={12} sm={7}>
-						<Posts setCurrentId={setCurrentId} />
+						<Posts setCurrentId={setCurrentId} currentId={currentId} />
 					</Grid>
 					<Grid item xs={12} sm={4}>
 						<Form setCurrentId={setCurrentId} currentId={currentId} />
 					</Grid>
 				</Grid>
 			</Container>
+			
 		</Grow>
 	);
 };

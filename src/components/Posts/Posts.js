@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Post from './Post/Post';
 import useStyles from './styles';
 import { useSelector } from 'react-redux';
 import { Grid, CircularProgress } from '@material-ui/core';
 
-const Posts = ({ setCurrentId }) => {
+
+
+const Posts = ({ setCurrentId, currentId }) => {
 	const posts = useSelector((state) => state.posts);
-	console.log(posts);
-	console.log('again');
+	const [totalCount, setTotalCount] = useState(null);
+	
+	
+
 	const classes = useStyles();
+
 	return !posts.length ? (
 		<CircularProgress />
 	) : (
@@ -18,6 +23,7 @@ const Posts = ({ setCurrentId }) => {
 					<Post post={post} setCurrentId={setCurrentId} />
 				</Grid>
 			))}
+			
 		</Grid>
 	);
 };

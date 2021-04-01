@@ -1,8 +1,10 @@
-import * as api from './api';
+import * as api from '../api';
 
-export const sigin = (authData, history) => async (dispatch) => {
+export const signin = (formData, history) => async (dispatch) => {
 	try {
-		const { data } = await api.signIn(formData);
+		const { data } = await api.signin(formData);
+
+		dispatch({ type: 'AUTH', data });
 
 		history.push('/');
 	} catch (error) {
@@ -10,9 +12,13 @@ export const sigin = (authData, history) => async (dispatch) => {
 	}
 };
 
-export const signup = async (formData, history) => async (dispatch) => {
+export const signup = (formData, history) => async (dispatch) => {
 	try {
-		const { data } = await api.signIn(formData);
+		const { data } = await api.signup(formData);
+		console.log(data);
+		console.log('hello');
+
+		dispatch({ type: 'AUTH', data });
 
 		history.push('/');
 	} catch (error) {
