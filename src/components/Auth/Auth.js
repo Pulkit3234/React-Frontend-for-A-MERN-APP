@@ -3,8 +3,6 @@ import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui
 import useStyles from './styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Input from './input';
-import { GoogleLogin } from 'react-google-login';
-import Icon from './Icon';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { signup, signin } from '../../actions/auth';

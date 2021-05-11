@@ -9,9 +9,13 @@ export const action = {
 };
 export const getPosts = () => async (dispatch) => {
 	try {
+		console.log('clicked')
 		const { data } = await api.fetchPosts();
+		console.log(data);
+		
 
-		dispatch({ type: action.FETCH_ALL, payload: data });
+
+		dispatch({ type: action.FETCH_ALL, payload: data.postMessages });
 	} catch (error) {
 		console.log(error.message);
 	}
