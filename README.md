@@ -34,4 +34,4 @@ This app is a full fledged social media type of app in which users can create, r
 ## NPM Commands
 * `npm i` - installs all the dependencies
 * `npm start` - starts the frontend development server on your local machine.
-* 
+
